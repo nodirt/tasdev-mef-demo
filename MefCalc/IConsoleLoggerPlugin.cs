@@ -11,14 +11,21 @@ namespace MefCalc
 
     // an plugin that makes the console log text green colored
     [Export(typeof(IConsoleLoggerPlugin))]
-    public class GreenConsoleLogger: IConsoleLoggerPlugin
+    public class ColoredConsoleLogger: IConsoleLoggerPlugin
     {
-        ConsoleColor _origColor;
+        ConsoleColor _origColor, _color;
+
+        [ImportingConstructor]
+        public ColoredConsoleLogger([Import("LogColor")] ConsoleColor color)
+        {
+            _color = color;
+        }
+
         public void BeforeWrite()
         {
             // set console color to green before writing
             _origColor = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = _color;
         }
 
         public void AfterWrite()

@@ -13,15 +13,21 @@ namespace MefCalc
         // If a plugin is found but cannot be composed (due to errors), it won't be included
         // and no exception will be thrown.
         [ImportMany]
-        IEnumerable<IConsoleLoggerPlugin> _plugins;
+        IEnumerable<Lazy<IConsoleLoggerPlugin>> _plugins;
+
+        [Export("LogColor")]
+        public ConsoleColor DefaultColor
+        {
+            get { return ConsoleColor.Blue; }
+        }
 
         public void Info(string message)
         {
             foreach (var plugin in _plugins)
-                plugin.BeforeWrite();
+                plugin.Value.BeforeWrite();
             Console.WriteLine("Info: " + message);
             foreach (var plugin in _plugins)
-                plugin.AfterWrite();
+                plugin.Value.AfterWrite();
         }
     }
 }
