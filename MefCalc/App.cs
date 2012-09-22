@@ -14,9 +14,15 @@ namespace MefCalc
         // global container
         static CompositionContainer _container;
 
-        // App requires an ILogger service
-        [Import]
         ILogger _log;
+
+        // the attribute specified that this constructor must be used when creating an instance of the class.
+        // All parameters of such a constructor must be importable. In this case a ConsoleLogger is created.
+        [ImportingConstructor]
+        public App(ILogger log)
+        {
+            _log = log;
+        }
 
         void Run()
         {
