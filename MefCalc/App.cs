@@ -40,6 +40,7 @@ namespace MefCalc
             {
                 try
                 {
+                    _extensionsCatalog.Refresh();
                     var text = _calc.Calculate(expr);
                     Console.WriteLine(text);
                 }

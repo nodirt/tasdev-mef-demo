@@ -28,7 +28,7 @@ namespace MefCalc
         // import all found operators.
         // Lazy means that instances of IOperator will be created on demand, 
         // when Lazy<`2>.Value property value is requested
-        [ImportMany]
+        [ImportMany(AllowRecomposition=true)]
         IEnumerable<Lazy<IOperator, IOperatorMetadata>> _operator;
 
         public string Calculate(string input)
