@@ -11,6 +11,8 @@ namespace MefCalc
     [Export]
     class App
     {
+        // a catalog of textensions
+        static DirectoryCatalog _extensionsCatalog;
         // global container
         static CompositionContainer _container;
 
@@ -52,8 +54,17 @@ namespace MefCalc
 
         static void Main(string[] args)
         {
+            // create a catalog of DLLs in the Extensions directory
+            _extensionsCatalog = new DirectoryCatalog("Extensions");
+
+            // create a catalog that combines this assembly and extensions
+            var catalog = new AggregateCatalog(
+                new AssemblyCatalog(typeof (App).Assembly),
+                _extensionsCatalog
+            );
+
             // create a container with exports from this assembly
-            _container = new CompositionContainer(new AssemblyCatalog(typeof (App).Assembly));
+            _container = new CompositionContainer(catalog);
 
             // create and compose an App with a single line
             var app = _container.GetExportedValue<App>();

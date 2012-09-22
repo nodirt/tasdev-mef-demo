@@ -2,30 +2,27 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BBE99B18-9F3F-4E1F-B4AB-5AAE9E688FB0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{BB72BF65-CDD3-47C6-8ABD-DD642F041AF4}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MefCalc</RootNamespace>
-    <AssemblyName>MefCalc</AssemblyName>
+    <RootNamespace>MefExtension</RootNamespace>
+    <AssemblyName>MefExtension</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\</OutputPath>
+    <OutputPath>..\bin\Extensions\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,13 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Add.cs" />
-    <Compile Include="IConsoleLoggerPlugin.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="App.cs" />
+    <Compile Include="ConsoleLoggerTimestamp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="TrivialCalculator.cs" />
+    <Compile Include="Subtract.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MefCalc\MefCalc.csproj">
+      <Project>{BBE99B18-9F3F-4E1F-B4AB-5AAE9E688FB0}</Project>
+      <Name>MefCalc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
