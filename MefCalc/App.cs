@@ -16,6 +16,9 @@ namespace MefCalc
 
         ILogger _log;
 
+        [Import]
+        ICalculator _calc;
+
         // the attribute specified that this constructor must be used when creating an instance of the class.
         // All parameters of such a constructor must be importable. In this case a ConsoleLogger is created.
         [ImportingConstructor]
@@ -28,7 +31,21 @@ namespace MefCalc
         {
             _log.Info("Started");
 
-            Console.WriteLine("2 + 2 = {0}", 2 + 2);
+            // run calculator on lines entered by the user until an empty line is entered
+            Console.WriteLine("Enter expression:");
+            string expr;
+            while (!string.IsNullOrEmpty(expr = Console.ReadLine()))
+            {
+                try
+                {
+                    var text = _calc.Calculate(expr);
+                    Console.WriteLine(text);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
 
             _log.Info("Finished");
         }
