@@ -9,9 +9,14 @@ namespace MefCalc
     [Export(typeof(ILogger))]
     public class ConsoleLogger: ILogger
     {
+        [Import]
+        IConsoleLoggerPlugin _plugin;
+
         public void Info(string message)
         {
+            _plugin.BeforeWrite();
             Console.WriteLine("Info: " + message);
+            _plugin.AfterWrite();
         }
     }
 }
