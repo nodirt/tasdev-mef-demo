@@ -9,14 +9,19 @@ namespace MefCalc
     [Export(typeof(ILogger))]
     public class ConsoleLogger: ILogger
     {
-        [Import]
-        IConsoleLoggerPlugin _plugin;
+        // import many plugins. All found plugins will be included in _plugins.
+        // If a plugin is found but cannot be composed (due to errors), it won't be included
+        // and no exception will be thrown.
+        [ImportMany]
+        IEnumerable<IConsoleLoggerPlugin> _plugins;
 
         public void Info(string message)
         {
-            _plugin.BeforeWrite();
+            foreach (var plugin in _plugins)
+                plugin.BeforeWrite();
             Console.WriteLine("Info: " + message);
-            _plugin.AfterWrite();
+            foreach (var plugin in _plugins)
+                plugin.AfterWrite();
         }
     }
 }
