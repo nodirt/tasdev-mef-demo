@@ -7,6 +7,8 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace MefCalc
 {
+    // The App class exports itself
+    [Export]
     class App
     {
         // global container
@@ -30,10 +32,8 @@ namespace MefCalc
             // create a container with exports from this assembly
             _container = new CompositionContainer(new AssemblyCatalog(typeof (App).Assembly));
 
-            var app = new App();
-
-            // initialize the app, including create an ILogger (ConsoleLogger) and put to app._log
-            _container.ComposeParts(app);
+            // create and compose an App with a single line
+            var app = _container.GetExportedValue<App>();
 
             app.Run();
         }
